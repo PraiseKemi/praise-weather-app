@@ -4,13 +4,15 @@ function displayWeather(response) {
     let weatherCondition = document.querySelector("#current-condition");
     let humidity = document.querySelector("#humidity");
     let windSpeed = document.querySelector("#wind");
+    let iconElement = document.querySelector("#icon");
+    
+    
     cityElement.innerHTML = response.data.city;
     temperature.innerHTML = Math.round(response.data.temperature.current);
     weatherCondition.innerHTML = response.data.condition.description;
-    humidityElement = response.data.temperature.humidity;
-    humidity.innerHTML = `${humidityElement}%`;
-    windElement = response.data.wind.speed;
-    windSpeed.innerHTML = `${windElement}km/h`;
+    humidity.innerHTML = `${response.data.temperature.humidity}%`;
+    windSpeed.innerHTML = `${response.data.wind.speed}km/h`;
+    iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="current-temperature-icon">`;
 }
 
 function searchSubmitFunction(event) {
