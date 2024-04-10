@@ -15,20 +15,6 @@ function displayWeather(response) {
     iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="current-temperature-icon">`;
 }
 
-function searchSubmitFunction(event) {
-    event.preventDefault();
-    let searchInput = document.querySelector("#search-input");
-    let city = searchInput.value;
-
-    let apiKey = "44a34b249b930f2abo9988f7a607t982";
-    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-
-    axios.get(apiUrl).then(displayWeather);
-}
-
-let searchInputElement = document.querySelector("#search-form");
-searchInputElement.addEventListener("submit", searchSubmitFunction);
-
 function formatDate(date) {
     let minutes = date.getMinutes();
     let hours = date.getHours();
@@ -52,3 +38,42 @@ let currentDateElement = document.querySelector("#current-date");
 let currentDate = new Date();
 
 currentDateElement.innerHTML = formatDate(currentDate);
+
+function searchSubmitFunction(event) {
+    event.preventDefault();
+    let searchInput = document.querySelector("#search-input");
+    let city = searchInput.value;
+
+    let apiKey = "44a34b249b930f2abo9988f7a607t982";
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
+    axios.get(apiUrl).then(displayWeather);
+}
+
+function displayForecast() {
+    let days = ["Tue", "Wed", "Thur", "Fri", "Sat"];
+    let forecastHtml = "";
+
+    days.forEach(function (day) {
+        forecastHtml =
+            forecastHtml +
+            `
+            <div class="weather-forecast-day">
+            <div class="weather-forecast-weekday">${day}</div>
+            <div class="weather-forecast-icon">🌥️</div>
+            <div class="weather-forecast-temperatures">
+              <span class="weather-forecast-temperature-max"><strong>15°</strong></span>
+              <span class="weather-forecast-temperature-min">9°</span>
+            </div>
+            </div>
+        `;
+    });
+
+    let forecastElement = document.querySelector("#forecast");
+    forecastElement.innerHTML = forecastHtml;
+}
+
+let searchInputElement = document.querySelector("#search-form");
+searchInputElement.addEventListener("submit", searchSubmitFunction);
+
+displayForecast();
