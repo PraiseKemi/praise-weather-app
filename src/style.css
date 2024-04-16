@@ -112,7 +112,9 @@ main {
 }
 
 .weather-forecast-icon {
-    font-size: 30px;
+    font-size: 20px;
+    display: block;
+    margin: 0 auto;
 }
 
 .weather-forecast-temperature-min {
